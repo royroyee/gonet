@@ -1,7 +1,7 @@
 # GoNet
 **Golang + Network**
 
-## Introdouction
+## Introduction
 This is a repository where I store and share my notes on computer networking. I cover the fundamental concepts and theories of computer networking and provide examples for their practical implementation.
 
 Computer networking is a vital field that underpins the communication and data exchange between devices and systems. In this repository, I delve into the concepts and use the Go programming language to provide examples and exercises.
