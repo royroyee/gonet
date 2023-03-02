@@ -17,7 +17,7 @@ All content, excluding the introduction, is written in Korean.
    - 네트워크에 대한 가장 기본적인 용어들, 시작점
 2. [Rules](https://github.com/royroyee/gonet/tree/main/02-rules)
    - 네트워크 규칙. 프로토콜과 OSI 7계층에 대한 의미들
-3. [Layer]
+3. [Layer](https://github.com/royroyee/gonet/tree/main/03-layer)
    - OSI 7계층. IP,라우터,TCP 등 핵심 개념들을 계층으로 나누어 학습
    - Layer 1 Pyhsical Layer
    - [Layer 2 Data Link Layer](https://github.com/royroyee/gonet/tree/main/03-layer/02-data-link-layer)
