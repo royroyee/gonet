@@ -8,7 +8,7 @@
 
 배운 개념들을 토대로 동시성과 병렬성을 지원하고, 네트워크 프로그래밍에 다양한 패키지와 라이브러리를 제공하는 Go 언어로 직접 코드를 작성하여 올립니다.
 
-또한 Kubernetes, Docker 에 관련된 Network 요소들도 다루어 배운 네트워크 지식들을 응용하고 더 깊게 배웁니다.
+또한 서버, 클라우드에 대한 내용과 Kubernetes, Docker 에 관련된 Network 요소들도 다루어 배운 네트워크 지식들을 응용하고 더 깊게 배웁니다.
 
 미흡한 내용들이 있을 수 있으며, 지속적으로 업데이트 할 예정입니다.
 
@@ -42,8 +42,9 @@
      - 랜 카드, 스위치/라우터, 웹 서버에서의 데이터 전달 및 처리
 
 ### 예정된 사항들, 관련 레파지토리
-1. Kubernetes , Docker Networking 
-2. Kubernetes Flannel 분석 및 나만의 클론 코딩
-3. [GoHTTPerf](https://github.com/royroyee/gohttperf) : HTTP Benchmarking tool
-4. Kubernetes CNI + SmartNIC
-5. 네트워크 심화 개념
+1. 네트워크 심화 개념
+2. 클라우드
+3. Kubernetes , Docker Networking 
+4. Kubernetes Flannel 분석 및 나만의 클론 코딩
+5. [GoHTTPerf](https://github.com/royroyee/gohttperf) : HTTP Benchmarking tool
+6. Kubernetes CNI + SmartNIC
