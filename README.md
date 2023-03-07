@@ -43,8 +43,8 @@
 
 ### 예정된 사항들, 관련 레파지토리
 1. 네트워크 심화 개념
-2. 클라우드
-3. Kubernetes , Docker Networking 
-4. Kubernetes Flannel 분석 및 나만의 클론 코딩
-5. [GoHTTPerf](https://github.com/royroyee/gohttperf) : HTTP Benchmarking tool
+2. [Cloud](https://github.com/royroyee/gonet/tree/main/cloud)
+3. [Kubernetes](https://github.com/royroyee/gonet/tree/main/kubernetes) , [Docker Networking](https://github.com/royroyee/gonet/tree/main/docker) 
+4. [Kubernetes Flannel 분석 및 나만의 클론 코딩](https://github.com/royroyee/gonet/blob/main/kubernetes/flannel/README.md)
+5. [rb](https://github.com/boanlab/rb) : REST API Benchmarking tool
 6. Kubernetes CNI + SmartNIC
