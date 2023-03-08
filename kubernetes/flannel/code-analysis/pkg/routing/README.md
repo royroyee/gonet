@@ -38,4 +38,4 @@ type Router interface {
 - `GetAllRoutes()` : 사용 가능한 모든 라우팅 테이블 항목 반환
 - `GetRoutesFromInterfaceToSubnet()` : 특정 인터페이스에서 목적지 서브넷으로 가는 모든 라우팅 테이블 항목 반환
 - `CreateRoute()` : 새로운 라우팅 테이블 항목을 추가
-- `DeleteRoute()` : 기존 라우팅 테이블 항목을 삭`
+- `DeleteRoute()` : 기존 라우팅 테이블 항목을 삭제`

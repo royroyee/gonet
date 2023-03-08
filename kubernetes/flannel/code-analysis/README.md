@@ -47,17 +47,3 @@
 - IP 대역을 관리하여 모든 노드에서 일관성 있는 IP 대역 사용을 가능하게 한다.
 
 
-## 분석 순서
-
-### 1. ip
-
-endianess.go
-
-iface.go
-
-
-ip6net.go
-
-ipnet.go
-
-tun.go
