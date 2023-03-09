@@ -2,7 +2,7 @@
 ****Layer 3, Network Layer 에서 작동하며 IP 패킷을 전송하는 역할을 한다.****
 
 ### 사전지식
-[VLAN]()
+[VLAN](https://github.com/royroyee/gonet/tree/main/03-layer/02-data-link-layer#vlanvirtual-lan)
 
 ## Overlay Network 란?
 > 가상 네트워크를 구성하는 방법 중 하나로, 물리적인 네트워크 상에서 동작하는 가상 네트워크

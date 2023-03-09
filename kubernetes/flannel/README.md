@@ -5,9 +5,6 @@
 ### 사전지식
 #### [Kubernetes CNI(Container Network Interface)](https://github.com/royroyee/gonet/tree/main/kubernetes/cni)
 
-### [Flannel 코드 분석](https://github.com/royroyee/gonet/tree/main/kubernetes/flannel/code-analysis)
-
-
 ### 기능
 - 가상 네트워크를 구성하여 모든 노드 간에 통신이 가능하도록 한다.
   - 이를 통해 클러스터 내의 모든 노드 간에 컨테이너와 통신할 수 있다.

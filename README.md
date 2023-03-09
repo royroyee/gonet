@@ -21,7 +21,7 @@
 3. [**Layer**](https://github.com/royroyee/gonet/tree/main/03-layer)
    - OSI 7계층에 대해 자세하게. IP,라우터,TCP 등 핵심 개념들을 계층으로 나누어 학습
    
-   - [**Layer 1 Physical Layer**]()
+   - [**Layer 1 Physical Layer**](https://github.com/royroyee/gonet/tree/main/03-layer/01-physical-layer)
       - LAN 카드(NIC), 허브
      
    - [**Layer 2 Data Link Layer**](https://github.com/royroyee/gonet/tree/main/03-layer/02-data-link-layer)
