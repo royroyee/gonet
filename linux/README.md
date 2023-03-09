@@ -9,7 +9,18 @@
 > 주의! :  레이어3 NAT 기능은 IP 주소 변환만 하는 것이 맞지만, 리눅스 iptables 에서는 NAT 기능 뿐만 아니라 다양한 규칙들을 포함해서 처리한다.
 
 
+### iptables Table
+**정책을 적용할 네트워크 패킷의 유형을 결정**
+
+- `Filter` : 기본 테이블로 패킷을 거부하거나 허용하는 등의 기본적인 패킷 필터링 작업을 수행
+- `NAT` : 네트워크 주소 변환 작업에 사용되는 테이블. 포트포워딩, IP 마스커레이드, 로드밸런싱 등의 작업을 처리
+- `Mangle` : 라우팅, TOS(데이터그램의 우선순위), TTL(생존 시간) 등의 네트워크 패킷 처리 작업을 수행
+- `Raw` : NAT 테이블 전에 동작, RAW 체인과 PREROUTING, OUTPUT 체인에 대해 룰을 적용. 일반적으로 인바운드 패킷의 제어와 관련된 룰을 구성하는 데 사용
+- `Security` : SELinux 보안 기능과 같은 리눅스 보안 기술을 적용하는 데 사용
+
 ### iptables Chain
+패킷이나 커널 데이터를 처리하는 일련의 규칙 
+> 체인은 패킷의 경로를 결정하고 이러한 패킷 경로를 따라 규칙이 적용되어 패킷이 수락되거나 거부되는 데 사용
 
 (그림)
 
@@ -24,7 +35,7 @@
 
 - 각 체인에 대해 규칙을 추가하거나 삭제할 수 있다.
 
-### iptables Target
+### iptables Target(Action)
 > 패킷 규칙이 일치할 때 취하는 동작을 지정
 - `ACCEPT` : 패킷을 받아들인다.
 - `DROP` : 패킷을 버린다. (패킷이 전송된 적이 없던 것처럼), 아무런 메세지도 전송하지 않는다.
@@ -37,8 +48,10 @@
 - `MARK` : 패킷에 특정한 마크를 설정
 - `TEE` : 패킷을 복사하여 다른 호스트로 전송
 - `SNTP` : 패킷의 시간 정보를 변경
+- `RETURN` : 패킷을 처리하지 않고 즉시 호출자로 돌려 보내는 역할. 일종의 조건문으로 사용되며, 패킷이 매칭되었을 때 특정 규칙을 즉시 종료시키고 다음 규칙으로 넘어가지 않도록 한다.
 
-### iptables Action
+
+### iptables Option
 - `-A` : [APPEND]  규칙을 추가하는 옵션. 새로운 규칙을 마지막에 삽입
 - `-I` : [INSERT]  규칙을 삽입하는 옵션. 새로운 규칙을 명시된 위치에 삽입
 - `-D` : [DELETE]  규칙을 삭제하는 옵션. 삭제하고자 하는 규칙 번호를 지정하여 사용합.
@@ -60,6 +73,28 @@
 
 - `-j/--jump` : 매치되는 패킷을 처리할 액션을 지정하는 옵션. 해당 옵션 뒤에 ACCEPT, DROP, REJECT 등의 액션을 입력하여 매칭된 패킷을 어떻게 처리할지 결정할 수 있다.
 
+### iptables Match Extension
+> 트래픽 필터링을 위해 패킷의 특정 속성을 매치시켜 필터링 할 수 있게 해주는 확장 기술
+
+- `-m state` : 패킷의 커넥션 상태를 매치시켜 필터링. --state 옵션과 함께 사용
+
+- `-m tcp` : TCP 패킷의 속성을 매치시켜 필터링. 예를 들어, --dport 옵션과 함께 사용하면 목적지 포트번호로 필터링할 수 있다.
+
+- `-m udp` : UDP 패킷의 속성을 매치시켜 필터링. TCP와 마찬가지로 --dport 옵션과 함께 사용하면 목적지 포트번호로 필터링할 수 있다.
+
+- `-m limit` : 패킷의 속도를 제한. 초당 허용되는 패킷 수를 지정할 수 있다.
+
+- `-m string` : 패킷의 데이터(페이로드)에서 특정 문자열을 찾아 필터링.
+
+- `-m mac` : MAC 주소를 기반으로 패킷을 필터링.
+
+- `-m iprange` : 특정 IP 주소 범위를 필터링.
+
+- `-m comment` : 패킷에 주석을 추가하거나 패킷 주석을 기반으로 필터링.
+
+- `-m mark` : 특정 마크값과 일치하는 IP 패킷을 선택하는 데 사용
+
+
 ### Example
 ```
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
@@ -74,6 +109,15 @@ iptables -A FORWARD -p tcp -d 192.168.1.100 --dport 8080 -j ACCEPT
 1. eth0 인터페이스를 통해 들어오는 tcp 80포트 패킷을 192.168.1.100 서버의 8080 포트로 전달 (DNAT)
 2. 192.168.1.100 서버로 전달되는 패킷 중에 8080 포트로 전달되는 tcp 패킷을 ACCEPT
 
+```go
+// flannel iptables.go
+iptables -t nat -A FLANNEL-POSTRTG -m mark --mark 0x4000/0x4000 -m comment --comment "flanneld masq" -j RETURN
+```
+- nat 테이블에서 FLANNEL-POSTRTG 체인에 새로운 규칙을 추가하는 명령어
+- 특정 마크 값(0x4000/0x4000)을 패킷을 탐지하여 flanneld masq 라는 주석을 붙인 후 RETURN 옵션으로 반환한다.
+  - 즉, 패킷이 특정 마크와 일치하는 지 확인하고 만약 패킷의 마크가 일치하면 주석을 달고 RETURN 액션을 수행하여 다음 규칙으로 이동하지 않도록 한다.
+
+> Plus : iptables는 정책을 적용할 때, 먼저 적용된 정책부터 차례대로 처리하므로 규칙의 순서는 매우 중요하다.
 ## IP Masquerade
 > Masquerade : 가면
 - 리눅스의 [NAT](https://github.com/royroyee/gonet/tree/main/03-layer/03-network-layer#natnetwork-address-translation) 기능
