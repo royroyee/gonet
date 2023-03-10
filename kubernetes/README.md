@@ -14,7 +14,10 @@ Kubernetes Network
 Kubernetes 에서 기본적으로 사용하는 네트워크 구조는 크게 2가지가 있다.
 
 ### 1. Docker Bridge Network(Kubernetes Default Network)
-[Docker Network](https://github.com/royroyee/gonet/tree/main/docker)
+[Docker Network](http!(img%2FDefault%20Network.png)s://github.com/royroyee/gonet/tree/main/docker)
+
+![Default Network.png](img%2FDefault%20Network.png)
+
 - 쿠버네티스에서는 Pod을 생성할 때, 각 Pod 마다 고유한 IP 주소를 할당한다.
 - 이때, **각 노드에서 실행 중인 컨테이너는 동일한 IP 주소를 가지게 된다.**
 - 따라서 **다른 노드에서 실행 중인 컨테이너와 IP 주소가 충돌**하게 되어 **통신에 문제**가 발생할 수 있다. (다른 노드의 Pod 끼리의 통신이 불가하다.)
