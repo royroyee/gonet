@@ -75,20 +75,4 @@
 
 이러한 것을 `플러딩` 이라고 한다.
 
----
 
-## ARP(Address Resolution Protocol)
-사전지식 [IP](https://github.com/royroyee/gonet/tree/main/03-layer/03-network-layer#ip)
-- 목적지 컴퓨터의 IP 주소를 이용하여 MAC 주소를 찾기 위한 프로토콜 (IP 주소를 MAC 주소와 매칭 시키기 위한 프로토콜)
-> ARP 요청 : 출발지 컴퓨터가 이더넷 프레임을 전송하려면 목적지 컴퓨터의 MAC 주소를 지정해야 하는데, 이를 모를 때 MAC 주소를 알아내기 위해 네트워크에 브로드캐스트를 하는 것
-- 즉, APR Request 는 연결된 네트워크 장비와 컴퓨터에 모두 전달된다.
-> APR 응답 : 위의 요청에 대해 지정된 IP 주소를 갖고 있는 컴퓨터가 MAC 주소를 응답으로 보내는 것
-- IP 주소와 MAC 주소를 일대일 매칭하여 LAN(Layer 2)에서 목적지를 제대로 찾아갈 수 있도록 돕는다.
-- **LAN 의 범위를 ARP 가 닿는 모든 범위**라고 칭하기도 한다.
-
-### ARP Table
-- IP 주소와 MAC 주소를 일대일 매칭시킨 정보를 정리해둔 Table
-- L2 네트워크에선, ARP 테이블을 수집하기 위해 Broadcast 를 이용한다.(ARP Request)
-
-
----
