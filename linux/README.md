@@ -153,6 +153,24 @@ iptables -t nat -A FLANNEL-POSTRTG -m mark --mark 0x4000/0x4000 -m comment --com
 > 이를 통해 overlay network의 IP 주소 공간이 호스트 네트워크의 IP 주소 공간과 겹쳐도 Pod IP 주소의 충돌을 방지할 수 있다.
 
 
+---
+
+## Netfilter
+> Linux 커널에서 제공하는 네트워크 패킷 필터링 프레임워크
+- 패킷의 흐름을 분석하고, 특정 규칙에 따라 패킷을 처리하거나 블록한다.
+- `iptables`와 같은 다양한 도구와 함께 사용
+  - `ìptables` 는 위에서 언급한 것처럼, `netfliter` 의 규칙을 설정 및 관리하기 위한 명령어 도구이다.
+- 다양한 기능을 제공한다.
+  - NAT 
+  - Packet filtering : 특정 패킷을 차단 또는 허용하는 기능. 서버의 접근제어 또는 방화벽기능 구현 가능
+  - Packet mangling : 필요시 패킷 헤더의 값을 변경
+
+### Netfilter Hook
+
+- 기본적으로 5개의 훅 존재
+
+
+
 ## Bridge
 **두 개 이상의 네트워크를 연결하기 위한 장치**
 - 보통 물리적으로 분리된 두 개 이상의 네트워크를 하나로 연결하는 역할을 한다.
