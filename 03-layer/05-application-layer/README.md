@@ -7,6 +7,7 @@
   - 이때도 역시 Application Layer 의 프로토콜을 사용해야 한다.
 
 ### 대표적인 Application Layer 의 프로토콜
+- `DHCP` :  IP주소와 게이트웨이 또는 네임서버의 주소의 정보를 자동으로 할당해주는 프로토콜
 - `HTTP` : 웹 사이트 접속
 - `DNS` : 이름 해석
 - `FTP` : 파일 전송
@@ -16,13 +17,72 @@
 ### 각 계층 별로 기술,프로토콜 정리(요약)
 > Application Layer 에서 보내려는 데이터는 하위 계층으로 (순서대로) 전달되어 처리된다.
 
-- `Application Layer` : HTTP, DNS, FTP, SMTP, POP3 , 기타
+- `Application Layer` : DHCP, HTTP, DNS, FTP, SMTP, POP3 , 기타
 - `Transport Layer` : TCP , UDP
 - `Network Layer` : IP 등
 - `Data Link Layer` : Ethernet
 - `Physical Layer` : 전기 신호 변환
 
 ---
+
+## DHCP
+유무선 IP 환경에서 단말의 IP 주소, 서브넷 마스크(Subnet Mask), 디폴트 게이트웨이(Default Gateway) , IP 주소, DNS 서버 IP 주소, 임대기간(Lease Time) 등의 다양한 네트워크 정보를 DHCP 서버가 PC와 같은 이용자 단말에 자동으로 할당해 주는 프로토콜
+
+### Lease Time (IP 대여시간)
+- 할당된 IP 를 사용할 수 있는 기간
+  - 이 기간이 지나면 IP를 재할당 받기 전까진 인터넷 사용 불가
+- DHCP 서버의 IP 회전률과 가용성을 높이기 위한 목적으로 사용된다.
+  - DHCP 서버가 할당할 수 있는 IP 보다 이를 요청하는 단말기의 수가 많을 경우에만 의미가 있다.
+    - 즉, 일반 가정집 같은 경우에선 크게 의미가 없을 수 있다.
+
+### DHCP 동작 방식
+
+### 1. IP 주소 할당 절차
+(주요 파라미터 부분은 [DHCP 패킷 분석]() 참고)
+
+1. **DHCP Discover**
+   - 단말 -> DHCP 서버
+   - 클라이언트(단말)가 DHCP 서버를 찾는 단계이다.
+   - Discover 메시지를 LAN 상에 브로드캐스팅을 하여 DHCP 서버를 찾는다.
+   - 주요 파라미터 : Client MAC Address
+
+
+2. **DHCP Offer**
+   - DHCP 서버 -> 단말
+   - 브로드캐스트 or 유니캐스트 메시지를 보낸다.
+     - Discover 의 broadcast flag 값이 1이면 브로드캐스트로, 0이면 유니캐스트로 LAN 상에 단말에 보낸다.
+   - DHCP 서버의 존재를 알린다.
+     - 단, 단순히 존재만 알리는 것이 아닌, 단말에 할당할 IP 주소 정보등을 포함한 다양한 네트워크 정보를 함께 전달한다.
+   
+  - 주요 파라미터
+    - Client MAC address
+    - Your IP : 단말에 할당(임대)할 IP 주소
+    - Subnet MAsk (Option 1)
+    - Router (Option 3) : 단말의 Default Gateway IP 주소
+    - DNS (Option 6) : DNS 서버 IP 주소
+    - IP Lease Time (Option 51) : 단말이 IP 주소(Your IP)를 사용(임대)할 수 있는 기간
+    - DHCP Server Identifier(Option 54) : DHCP Offer 를 보낸 DHCP 서버의 주소
+      - 2개 이상의 DHCP 서버가 메시지를 보낼 수 있으므로, 각 DHCP 서버는 자신의 IP 주소를 필드에 넣어서 단말에 전달한다.
+
+
+3. **DHCP Request**
+   - 단말 -> DHCP 서버
+   - 브로드캐스트 메시지
+   - 단말은 DHCP 서버(들)의 존재를 알았고, DHCP 서버가 단말에 제공할 네트워크 정보들을 알았으므로, DHCP Request 메시지를 통해 하나의 DHCP 서버를 선택하고 해당 서버에게 `단말이 사용할 네트워크 정보`를 요청한다.
+   - 주요 파라미터
+     - Client MAC Address
+     - Requested IP Address(Option 50) : 이 IP 주소를 사용하겠다고 알려준다.(DHCP Offer의 Your IP 주소)
+     - DHCP Server Identifier(Option 54) : 2대 이상의 DHCP 서버가 DHCP Offer를 보낸 후 단말은 이 중에 하나를 선택한다. 그 서버의 IP 주소가 이 필드에 들어간다.
+
+4. **DHCP ACK**
+- DHCP 서버 -> 단말
+- 브로드캐스트 or 유니캐스트 (위와 같이 Broadcast flag 에 따라)
+- DHCP 절차의 마지막 메시지로, DHCP 서버가 단말에게 `네트워크 정보`를 전달해주는 메시지
+  - DHCP Offer의 `네트워크 정보`와 동일한 파라미터가 포함된다.
+
+ 
+### DHCP 장점
+- 이용자가 네트워크 정보를 직접 설정할 필요없이 자동으로 그 설정이 가능하기 때문에, 네트워크 관리의 용이성을 제공한다.
 
 ## 웹 서버 Web Server
 인터넷에서 핵심역할을 하고 있는 `WWW` 웹서버
