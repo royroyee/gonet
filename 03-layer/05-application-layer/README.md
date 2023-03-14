@@ -38,7 +38,7 @@
 ### DHCP 동작 방식
 
 ### 1. IP 주소 할당 절차
-(주요 파라미터 부분은 [DHCP 패킷 분석]() 참고)
+(주요 파라미터 부분은 [DHCP 패킷 분석](https://github.com/royroyee/gonet/tree/main/packet-analysis/layer5-application/dhcp) 참고)
 
 1. **DHCP Discover**
    - 단말 -> DHCP 서버
